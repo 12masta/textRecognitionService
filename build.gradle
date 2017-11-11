@@ -6,6 +6,8 @@ repositories{
 }
 
 dependencies{
+    compile 'com.google.cloud:google-cloud-vision:0.26.0-beta'
+
     testCompile "org.spockframework:spock-core:1.1-groovy-2.4"
     testCompile 'com.nagternal:spock-genesis:0.6.0'
 }
