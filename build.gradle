@@ -1,3 +1,7 @@
+plugins {
+    id 'org.springframework.boot' version '1.5.7.RELEASE'
+}
+
 apply plugin: 'idea'
 apply plugin: 'groovy'
 
@@ -18,9 +22,6 @@ dependencies{
     testCompile 'org.springframework.boot:spring-boot-starter-test'
     testCompile 'org.spockframework:spock-core:1.1-groovy-2.4'
     testCompile 'org.spockframework:spock-spring:1.1-groovy-2.4'
+    testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: '1.5.7.RELEASE'
     testRuntime 'cglib:cglib-nodep:3.2.4'
-}
-
-plugins {
-    id 'org.springframework.boot' version '1.5.7.RELEASE'
 }
