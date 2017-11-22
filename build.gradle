@@ -19,9 +19,10 @@ dependencies{
     runtime 'org.springframework.boot:spring-boot-devtools:1.5.7.RELEASE'
 
     // Spock
-    testCompile 'org.springframework.boot:spring-boot-starter-test'
+    testCompile 'org.springframework.boot:spring-boot-starter-test:1.5.7.RELEASE'
     testCompile 'org.spockframework:spock-core:1.1-groovy-2.4'
     testCompile 'org.spockframework:spock-spring:1.1-groovy-2.4'
     testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: '1.5.7.RELEASE'
+    testCompile group: 'com.squareup.okhttp3', name: 'okhttp', version: '3.8.1'
     testRuntime 'cglib:cglib-nodep:3.2.4'
 }
