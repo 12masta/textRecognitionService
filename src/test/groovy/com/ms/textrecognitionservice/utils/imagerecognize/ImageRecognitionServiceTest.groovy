@@ -1,6 +1,7 @@
 package com.ms.textrecognitionservice.utils.imagerecognize
 
 import com.google.cloud.vision.v1.AnnotateImageResponse
+import com.ms.textrecognitionservice.models.RecipeModel
 import spock.lang.Specification
 import spock.lang.Subject
 
@@ -18,6 +19,6 @@ class ImageRecognitionServiceTest extends Specification {
         def results = imageRecognitionService.recognizeText()
 
         then:
-        results as List
+        results as RecipeModel
     }
 }
