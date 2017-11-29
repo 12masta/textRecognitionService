@@ -2,16 +2,18 @@ package com.ms.textrecognitionservice.utils.imagerecognize;
 
 import com.google.cloud.vision.v1.*;
 import com.google.protobuf.ByteString;
+import com.ms.textrecognitionservice.models.RecipeEntity;
+import com.ms.textrecognitionservice.models.RecipeModel;
 import io.grpc.internal.IoUtils;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class GoogleImageRecognitionServiceImpl implements ImageRecognitionService {
     @Override
-    public List<AnnotateImageResponse> recognizeText() throws Exception {
+    public RecipeModel recognizeText() throws Exception {
         try (ImageAnnotatorClient vision = ImageAnnotatorClient.create()) {
 
             ClassLoader classloader = Thread.currentThread().getContextClassLoader();
@@ -34,7 +36,13 @@ public class GoogleImageRecognitionServiceImpl implements ImageRecognitionServic
             // Performs label detection on the image file
             BatchAnnotateImagesResponse response = vision.batchAnnotateImages(requests);
             List<AnnotateImageResponse> responses = response.getResponsesList();
-            return responses;
+            List<String> recipeEntities = Arrays.asList(responses.get(0).getFullTextAnnotation().getText().split("\\s*\n\\s*"));
+            List<RecipeEntity> recipes = new ArrayList<>();
+            for (String entity : recipeEntities) {
+                recipes.add(new RecipeEntity(entity));
+            }
+
+            return new RecipeModel(recipes);
         }
     }
 }
