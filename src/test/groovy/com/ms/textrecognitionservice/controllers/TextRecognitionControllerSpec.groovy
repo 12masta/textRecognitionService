@@ -1,9 +1,8 @@
 package com.ms.textrecognitionservice.controllers
 
 import com.ms.textrecognitionservice.Main
-import com.ms.textrecognitionservice.models.RecipeModel
 import com.ms.textrecognitionservice.models.RecipeEntity
-import com.ms.textrecognitionservice.utils.imagerecognize.GoogleImageRecognitionServiceImpl
+import com.ms.textrecognitionservice.models.RecipeModel
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.web.client.TestRestTemplate
@@ -20,14 +19,12 @@ class TextRecognitionControllerSpec extends Specification {
 
     def "clients return corrext text"() {
         when:
-        def entity = restTemplate.getForEntity('/recognizeTest', RecipeModel)
+        def entity = restTemplate.postForEntity('/recognizeTest', "test", RecipeModel)
 
         then:
-        noExceptionThrown()
-        and:
         entity.statusCode == HttpStatus.OK
         entity.body as RecipeModel
-        entity.body.entities.every{
+        entity.body.entities.every {
             int index = 0
             it.getEntity() == recipe.entities.get(index).getEntity()
             (++index)
