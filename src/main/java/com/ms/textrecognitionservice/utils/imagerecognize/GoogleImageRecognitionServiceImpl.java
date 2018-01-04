@@ -5,6 +5,8 @@ import com.google.protobuf.ByteString;
 import com.ms.textrecognitionservice.models.RecipeEntity;
 import com.ms.textrecognitionservice.models.RecipeModel;
 import io.grpc.internal.IoUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -12,8 +14,12 @@ import java.util.Arrays;
 import java.util.List;
 
 public class GoogleImageRecognitionServiceImpl implements ImageRecognitionService {
+
+    private Logger logger = LoggerFactory.getLogger(GoogleImageRecognitionServiceImpl.class);
+
     @Override
     public RecipeModel recognizeText() throws Exception {
+        logger.info("start");
         try (ImageAnnotatorClient vision = ImageAnnotatorClient.create()) {
 
             ClassLoader classloader = Thread.currentThread().getContextClassLoader();
