@@ -24,10 +24,8 @@ class TextRecognitionControllerSpec extends Specification {
         then:
         entity.statusCode == HttpStatus.OK
         entity.body as RecipeModel
-        entity.body.entities.every {
-            int index = 0
-            it.getEntity() == recipe.entities.get(index).getEntity()
-            (++index)
+        entity.body.entities.eachWithIndex { RecipeEntity row, int i ->
+            assert row.entity == recipe.entities.get(i).getEntity()
         }
 
         where:
