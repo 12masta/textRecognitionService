@@ -1,3 +1,7 @@
+plugins {
+    id 'org.springframework.boot' version '1.5.7.RELEASE'
+}
+
 apply plugin: 'idea'
 apply plugin: 'groovy'
 
@@ -6,8 +10,18 @@ repositories{
 }
 
 dependencies{
+    //Google API
     compile 'com.google.cloud:google-cloud-vision:0.26.0-beta'
 
-    testCompile "org.spockframework:spock-core:1.1-groovy-2.4"
-    testCompile 'com.nagternal:spock-genesis:0.6.0'
+    //Spring
+    compile 'org.springframework.boot:spring-boot-starter-web:1.5.7.RELEASE'
+    compile 'org.springframework.boot:spring-boot-starter-jetty:1.5.7.RELEASE'
+    runtime 'org.springframework.boot:spring-boot-devtools:1.5.7.RELEASE'
+
+    // Spock
+    testCompile 'org.springframework.boot:spring-boot-starter-test:1.5.7.RELEASE'
+    testCompile 'org.spockframework:spock-core:1.1-groovy-2.4'
+    testCompile 'org.spockframework:spock-spring:1.1-groovy-2.4'
+    testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: '1.5.7.RELEASE'
+    testRuntime 'cglib:cglib-nodep:3.2.4'
 }
