@@ -4,11 +4,10 @@ import com.google.cloud.vision.v1.*;
 import com.google.protobuf.ByteString;
 import com.ms.textrecognitionservice.models.RecipeEntity;
 import com.ms.textrecognitionservice.models.RecipeModel;
-import io.grpc.internal.IoUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.InputStream;
+import javax.xml.bind.DatatypeConverter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -18,15 +17,15 @@ public class GoogleImageRecognitionServiceImpl implements ImageRecognitionServic
     private Logger logger = LoggerFactory.getLogger(GoogleImageRecognitionServiceImpl.class);
 
     @Override
-    public RecipeModel recognizeText() throws Exception {
+    public RecipeModel recognizeText(String imageInBase64) throws Exception {
         logger.info("start");
         try (ImageAnnotatorClient vision = ImageAnnotatorClient.create()) {
 
-            ClassLoader classloader = Thread.currentThread().getContextClassLoader();
-            InputStream is = classloader.getResourceAsStream("bill.png");
+            // tokenize the data
+            String base64Image = imageInBase64.split(",")[1];
 
             // Reads the image file into memory
-            byte[] data = IoUtils.toByteArray(is);
+            byte[] data = DatatypeConverter.parseBase64Binary(base64Image);
             ByteString imgBytes = ByteString.copyFrom(data);
 
             // Builds the image annotation request
